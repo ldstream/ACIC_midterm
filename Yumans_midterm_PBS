@@ -21,20 +21,18 @@
 #PBS -l cput=01:00:00
 
 
-cd /home/u24/bpope/files
+cd /home/u24/bpope/files/MidTermYuma
 
-date
-/usr/bin/time echo "This is a test. Only a test. Do not panic"
-date
 
-/*Depending upon which system you're running, can go here to download R:
-
-Took the liberty of putting the R code into the script: (Some of these need to be changed for whoever's running it)
 #before starting R, need to create the empty locations.csv file
+touch locations.csv
 
+#run r
 R
 
-install.packages(c(daymetr,foreign))
+install.packages("devtools")
+require(devtools)
+install_github("khufkens/daymetr")
 library(daymetr)
 library(foreign)
 
