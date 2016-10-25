@@ -1,0 +1,65 @@
+#!/bin/csh
+
+#PBS -N MidtermRCode
+
+#PBS -m bea
+
+#PBS -M bpope@email.arizona.edu
+
+#PBS -W group_list=ericlyons
+
+#PBS -q windfall
+
+#PBS -l jobtype=serial
+
+#PBS -l select=1:ncpus=1:mem=1gb
+
+#PBS -l place=pack:shared
+
+#PBS -l walltime=01:00:00
+
+#PBS -l cput=01:00:00
+
+
+cd /home/u24/bpope/files
+
+date
+/usr/bin/time echo "This is a test. Only a test. Do not panic"
+date
+
+/*Depending upon which system you're running, can go here to download R:
+
+Took the liberty of putting the R code into the script: (Some of these need to be changed for whoever's running it)
+#before starting R, need to create the empty locations.csv file
+
+R
+
+install.packages(c(daymetr,foreign))
+library(daymetr)
+library(foreign)
+
+
+ivec=seq(32.479,32.731,by=.01)
+ivec
+jvec=(seq(-114.4611,-114.6847,by=-.01))
+jvec
+
+data.frame_csv=cbind(rep("DAYMET", 598),rep(ivec,length(jvec)),rep(jvec,length(ivec)))
+write.csv(data.frame_csv, file = "locations.csv")
+
+batch.download.daymet("locations.csv",start_yr=1980,end_yr=2015)
+temp = list.files(pattern="*.csv")
+myfiles = lapply(temp, read.csv,skip=7)
+weatherfile=myfiles[[1]]
+for(k in 2:length(temp)){rbind(weatherfile,myfiles[[k]])}
+
+attach(weatherfile) #This makes coding in R less cumbersome, by not having to reference data set every time you use a variable
+avTemp = (tmax..deg.c.+273.15 + tmin..deg.c.+273.15)/2
+
+ln(saturation vapor pressure/6.11) = (2.453*(10^6)/461)*((1/273) - (1/avTemp))
+satvaporpressure=exp(((2.453*(10^6)/461)*((1/273) - (1/avTemp))))*6.11
+RelHumid=vp..Pa./satvaporpressure
+    
+write.csv(weatherfile, file = "weather.csv")
+
+q()
