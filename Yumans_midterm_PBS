@@ -20,9 +20,9 @@
 
 #PBS -l cput=01:00:00
 
-
-cd /home/u24/bpope/files/MidTermYuma
-
+mkdir ~/files
+mkdir ~/files/MidTermYuma
+cd ~/files/MidTermYuma
 
 #before starting R, need to create the empty locations.csv file
 touch locations.csv
