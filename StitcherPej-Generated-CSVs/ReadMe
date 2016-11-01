@@ -1,0 +1,5 @@
+CSVs from StitcherPej have been placed here 
+
+master.csv: contains lat, lon, year, month, day, T_max, T_min, PrecipMM, T_ave, PrecipCM, RelHum
+MoLS_comp.csv: year, month, day, T_max, T_min, PrecipMM, T_ave, PrecipCM, RelHum
+lat_lon.csv (same number of rows as MoLS_comp): lat, lon
